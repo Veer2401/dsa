@@ -58,6 +58,7 @@ class Queue{
     string dequeue(){
         if(isEmpty()){
             cout << "Cannot Deliver orders!";
+            return "";
         }
         
         string deliveredOrder = orders[front];
