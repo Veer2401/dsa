@@ -1,13 +1,14 @@
 #include <iostream>
 using namespace std;
 
-#define SIZE 5
+#define SIZE 10
 
 class Queue{
-    string orders[SIZE];
-    int front,rear;
 
     public:
+
+    string orders[SIZE];
+    int front,rear;
 
     Queue(){
         front = rear = -1;
@@ -23,23 +24,23 @@ class Queue{
 
     void enqueue(string order){
         if(isFull()){
-            cout << "Queue is Full!";
+            cout << "Cannot add orders!";
             return;
         }
 
-       if(front == -1) front = 0;
-       rear++;
-       orders[rear] = order;
-       cout << order << " added successfully";
+        if(front == -1) front = 0;
+        rear++;
+        orders[rear] = order;
+        cout << order << " added successfully!\n";
     }
 
     void dequeue(){
         if(isEmpty()){
-            cout << "No orders to deliver!";
+            cout << "Cannot deliver orders!";
             return;
         }
 
-        cout << orders[front] << " delivered";
+        cout << orders[front] << " delivered successfully!\n";
         front++;
         if(front > rear){
             front = rear = -1;
@@ -48,35 +49,71 @@ class Queue{
 
     void peek(){
         if(isEmpty()){
-            cout << "No pending orders!";
+            cout << "No orders to display!";
+            return;
         }
-        
-        else{
-            cout << "Next order to deliver: " << orders[front] << "\n";
+
+        cout << "Next order to deliver: " << orders[front] << "\n";
+    }
+
+    void display(){
+        if (isEmpty()) {
+            cout << "No pending orders!\n\n";
+            return;
+        }
+
+        cout << "Orders: ";
+        for(int i = front;i<=rear;i++){
+            cout << (i-front+1) << ". " << orders[i] << "\n";
+        }
+        cout << "\n";
+    }
+
+    void search(string order){
+        if (isEmpty()) {
+            cout << "No orders to search!\n\n";
+            return;
+        }
+
+        bool found = false;
+
+        for(int i = front;i<=rear;i++){
+            if(orders[i] == order){
+                cout << "Order: " << order << " was found.";
+                found = true;
+                break;
+            }
+        }
+
+        if(!found){
+            cout << "No order was found!";
         }
     }
+
+    
 };
 
 
 int main(){
     Queue q;
-    int choice;
+    int ch;
     string order;
 
     do
     {
-        
-        cout << "Hotel Take Away Order System";
-        cout << "\nMenu:\n";
-        cout << "1. Add Order\n";
-        cout << "2. Deliver Order\n";
-        cout << "3. Show Next Order\n";
-        cout << "4. Exit\n";
+        cout << "==========HOTEL TAKE AWAY SYSTEM===========\n";
+        cout << "1. Add order\n";
+        cout << "2. Deliver order\n";
+        cout << "3. Show next order\n";
+        cout << "4. Display\n";
+        cout << "5. Search\n";
+        cout << "6. Exit\n";
+
         cout << "Enter your choice: ";
-        cin >> choice;
+        cin >> ch;
         cin.ignore();
 
-        switch(choice){
+        switch(ch){
             case 1:
             cout << "Enter order name: ";
             getline(cin,order);
@@ -92,15 +129,23 @@ int main(){
             break;
 
             case 4:
-            cout << "Exiting...";
+            q.display();
+            break;
+
+            case 5:
+            cout << "Enter order to search: ";
+            getline(cin,order);
+            q.search(order);
+            break;
+
+            case 6:
+            cout << "Thanks for ordering.";
             break;
 
             default:
-            cout << "Invalid choice! Try again\n";
+            cout << "Enter correct choice!";
         }
-
-    } while (choice != 4);
-
-    return 0;
+    } while (ch != 6);
     
+    return 0;
 }
