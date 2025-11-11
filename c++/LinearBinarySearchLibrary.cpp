@@ -1,32 +1,40 @@
 #include <iostream>
 using namespace std;
 
-struct Book{
+class Book{
+    public:
     int id;
     string title,author;
+
 };
 
-int linearSearch(Book books[],int n,string author){
+void linearSearch(Book books[],int n,string author){
     bool found = false;
-    cout << "\nSearching for books.." << endl;
     for(int i=0;i<n;i++){
         if(books[i].author == author){
-            cout << "Book found! " << endl;
-            cout << "ID: " << books[i].id << endl;
-            cout << "Title: " << books[i].title << endl;
-            cout << "Author: " << books[i].author << endl;
+            cout << "Book found!" << endl;
+            cout << books[i].id << ", " << books[i].title << ", " << books[i].author << endl;
             found = true;
         }
     }
     if(!found){
-        cout << "No book was found! " << endl;
+        cout << "Book was not found!";
+    }
+}
+
+void sortBooks(Book books[],int n){
+    for(int i=0;i<n-1;i++){
+        for(int j=0;j<n-i-1;j++){
+            if(books[j].id > books[j+1].id){
+                swap(books[j],books[j+1]);
+            }
+        }
     }
 }
 
 int binarySearch(Book books[],int n,int id){
-    int low=0,mid,high = n-1;
-
-    while(low <= high){
+    int low = 0, high = n-1;
+    while(low<=high){
         int mid = (low+high)/2;
         if(books[mid].id == id){
             return mid;
@@ -35,7 +43,7 @@ int binarySearch(Book books[],int n,int id){
             low = mid + 1;
         }
         else{
-            high = mid-1;
+            high = mid -1;
         }
     }
     return -1;
@@ -43,10 +51,12 @@ int binarySearch(Book books[],int n,int id){
 
 int main(){
     int n;
-    cout << "Enter number of Books: ";
+
+    cout << "Enter number of books: ";
     cin >> n;
 
     Book books[n];
+
     cout << "Enter the book details: " << endl;
     for(int i=0;i<n;i++){
         cout << "ID: ";
@@ -58,27 +68,32 @@ int main(){
     }
 
     int choice;
+    string author;
+    int id,index;
 
-    do{
-        cout << "\n--- Library Management System ---";
-        cout << "\n1. Linear Search by Author";
-        cout << "\n2. Binary Search by Book ID";
-        cout << "\n3. Exit";
-        cout << "\nEnter Choice: ";
+    do
+    {
+        cout << "===BOOK MANAGE===";
+        cout << "1. Search by author\n";
+        cout << "2. Search by ID\n";
+        cout << "3. Exit";
+
+        cout << "Enter your choice: ";
         cin >> choice;
 
-        if(choice == 1){
-            string author;
-            cout << "Enter author name: ";
+        switch(choice){
+            case 1:
+            cout << "Enter author name to search: ";
             cin >> author;
             linearSearch(books,n,author);
-        }
-        else if(choice == 2){
-            int id;
-            cout << "Enter Book id to search: ";
+            break;
+
+            case 2:
+            cout << "Enter ID to search: ";
             cin >> id;
 
-            int index = binarySearch(books,n,id);
+            sortBooks(books,n);
+            index = binarySearch(books,n,id);
             if(index != -1){
                 cout << "Book found!" << endl;
                 cout << "ID: " << books[index].id << endl;
@@ -86,10 +101,10 @@ int main(){
                 cout << "Author: " << books[index].author << endl;
             }
             else{
-                cout << "Book Not found! " << endl;
+                cout << "Book not found!";
             }
-        }
-    }while(choice != 3);
 
+        }
+    } while (choice != 3);
     return 0;
 }
