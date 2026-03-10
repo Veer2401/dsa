@@ -1,5 +1,6 @@
-# Dsa in C++
+# Dsa in C++ and Java
 <img src="https://skillicons.dev/icons?i=cpp" />
+<img src="https://skillicons.dev/icons?i=java" />
 
 A curated collection of C++ implementations for classic Data Structures and Algorithms (DSA).
 
