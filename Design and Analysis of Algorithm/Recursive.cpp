@@ -1,5 +1,25 @@
+/*
+   ASSIGNMENT 4: RECURSIVE PROGRAMS
+
+   This program implements four recursive algorithms:
+   (a) Binary Search - searches an element in a sorted array by repeatedly
+       dividing the search range into half.
+   (b) Merge Sort - recursively divides the array into two halves, sorts them,
+       and merges the sorted halves.
+   (c) Sum of First N Factorials - calculates 1! + 2! + ... + N! recursively.
+   (d) Sum of First N Fibonacci Numbers - calculates F1 + F2 + ... + FN using
+       plain recursive Fibonacci with two recursive calls.
+
+   The assignment also requires mathematical analysis of each algorithm,
+   including its recurrence relation, recursive calls, work outside recursion,
+   applicability of the Master Theorem, and theoretical time complexity.
+*/
+
 #include <iostream>
 using namespace std;
+
+
+// (a) Binary Search
 
 int binarySearch(int arr[], int low, int high, int key)
 {
@@ -16,6 +36,9 @@ int binarySearch(int arr[], int low, int high, int key)
 
     return binarySearch(arr, mid + 1, high, key);
 }
+
+
+// (b) Merge Sort
 
 void merge(int arr[], int low, int mid, int high)
 {
@@ -70,6 +93,9 @@ void mergeSort(int arr[], int low, int high)
     merge(arr, low, mid, high);
 }
 
+
+// (c) Sum of First N Factorials
+
 long long factorial(int n)
 {
     if (n <= 1)
@@ -85,6 +111,9 @@ long long sumFactorials(int n)
 
     return factorial(n) + sumFactorials(n - 1);
 }
+
+
+// (d) Sum of First N Fibonacci Numbers
 
 long long fibonacci(int n)
 {
@@ -102,6 +131,9 @@ long long sumFibonacci(int n)
     return fibonacci(n) + sumFibonacci(n - 1);
 }
 
+
+// Display Array
+
 void displayArray(int arr[], int n)
 {
     for (int i = 0; i < n; i++)
@@ -110,8 +142,13 @@ void displayArray(int arr[], int n)
     cout << endl;
 }
 
+
+// Main Function
+
 int main()
 {
+    // (a) Binary Search
+
     int n1, key;
     int arr1[100];
 
@@ -137,6 +174,9 @@ int main()
     else
         cout << "Element not found." << endl;
 
+
+    // (b) Merge Sort
+
     int n2;
     int arr2[100];
 
@@ -158,6 +198,9 @@ int main()
     cout << "After sorting: ";
     displayArray(arr2, n2);
 
+
+    // (c) Sum of First N Factorials
+
     int N1;
 
     cout << endl;
@@ -169,6 +212,9 @@ int main()
     cout << "Sum of first " << N1 << " factorials = "
          << sumFactorials(N1) << endl;
 
+
+    // (d) Sum of First N Fibonacci Numbers
+
     int N2;
 
     cout << endl;
@@ -179,6 +225,7 @@ int main()
 
     cout << "Sum of first " << N2 << " Fibonacci numbers = "
          << sumFibonacci(N2) << endl;
+
 
     return 0;
 }
